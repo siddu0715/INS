@@ -1,0 +1,337 @@
+INDOOR NAVIGATION SYSTEM 
+HTML 👍
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALIET Navigation</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+
+    .container {
+      width: 80%;
+      margin: auto;
+      text-align: center;
+    }
+
+
+    /* Header */
+    .header {
+      background: linear-gradient(to right, #007bff, #6a0dad);
+      padding: 15px;
+      font-size: large;
+      color: rgb(255, 255, 255);
+      text-align: center;
+    }
+
+
+    .nav-links {
+      list-style: none;
+      padding: 0;
+      text-align: right;
+    }
+
+
+    .nav-links li {
+      display: inline;
+      margin-right: 20px;
+    }
+
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 50px;
+      background: linear-gradient(to right, #28a745, #007bff);
+      color: white;
+      text-align: center;
+      font-size: x-large;
+    }
+
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+
+    .hero img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 30px;
+      border: 2px solid black;
+      box-shadow: 2px 2px 10px rgba(255, 0, 0, 0.3);
+    }
+
+
+    /* Room Section */
+    .room-section {
+      text-align: center;
+      padding: 30px;
+      background: white;
+    }
+
+
+    select {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+
+    /* Directions Box */
+    .directions-box {
+      margin-top: 20px;
+      font-size: x-large;
+      padding: 15px;
+      background:  #e3e3f5;
+      border-left: 4px solid #000000;
+      display: none;
+      text-align:center;
+    ;
+   
+    }
+
+
+    .directions-box img {
+      width: 400px;
+      height: 400px;
+      margin-right: 10px;
+      vertical-align: middle;
+      justify-content: center;
+      align-items: center;
+      border: #000000;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+
+    /* Footer */
+    .footer {
+      background: linear-gradient(to right, #007bff, #6a0dad);
+      padding: 10px;
+      color: white;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container flex-between">
+      <h1>ALIET Campus Navigation</h1>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#room-navigation">Directions</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <h2>Find Your Way Around Campus</h2>
+        <p>Select a room to get step-by-step directions.</p>
+      </div>
+      <div class="hero-image">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Andhra_Loyola_College_of_Engineering_front.jpg" alt="Campus Image">
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Room Selection -->
+  <section id="room-navigation" class="room-section">
+    <div class="container">
+      <h2>Find Your Way to a Room</h2>
+      <label for="room-select">Select Room:</label>
+      <select id="room-select">
+        <option value="" disabled selected>Select a room</option>
+        <option value="302">302 - Department of Ds & Aiml</option>
+        <option value="2E4">2E4 - Department of Cse</option>
+        <option value="3N3">3N3 - Department of Ece</option>
+        <option value="4S4">4S4 - Department of EEE</option>
+        <option value="4W4">4W4 - Department of Civil/Mechanical</option>
+        <option value="4E3">4E3 - Director father room</option>
+        <option value="4E6">4E6 - principal</option>
+        <option value="4E7">4E7 - Ass Director father</option>
+        <option value="Ground">Ground - Cricket Ground</option>
+        <option value="4E9">4E9 - Library</option>
+      </select>
+      <button onclick="getDirections()">Get Directions</button>
+    </div>
+
+
+    <div id="directions-output" class="directions-box"></div>
+  </section>
+
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 ALIET. All rights reserved.</p>
+    </div>
+  </footer>
+
+
+  <script>
+    function getDirections() {
+      const room = document.getElementById("room-select").value;
+      const output = document.getElementById("directions-output");
+
+
+      if (!room) {
+        alert("Please select a room to get directions.");
+        return;
+      }
+
+
+      let steps = [];
+
+
+      switch (room) {
+        case "302":
+          steps = [
+            "<img src='mainentrance.png'> Start from the Main Entrance.",
+            "<img src='mba.png'> Walk straight towards MBA block.",
+            "<img src='stairs.jpeg'> Take the stairs to the 3rd floor.",
+            "<img src='turnleft.jpg'> Turn left and walk 80 meters.",
+            "<img src='DS & AIML.jpeg'> 302 - Dept of Ds & Aiml is on your Right."
+          ];
+          break;
+
+
+        case "2E4":
+          steps = [
+            "<img src='mainentrance.png'> Start from the Main Entrance.",
+            "<img src='stairs.jpeg'> Take the Stairs to the 2nd floor.",
+            "<img src='turn right.jpeg'> Turn right and walk 20 meters.",
+            "<img src='turn right.jpeg'>turn right and walk 15 meters.",
+            "<img src='dept of cse.jpeg'> 2E4 - Department of CSE is on your left."
+          ];
+          break;
+
+
+        case "3N3":
+          steps = [
+            "<img src='mainentrance.png'> Start from the Main Entrance.",
+            "<img src='mba.png'> Walk straight towards MBA block.",
+            "<img src='stairs.jpeg'> Take the stairs to the 2nd floor.",
+            "<img src='turn right.jpeg'> Turn right and walk 10 meters.",
+            "<img src='dept ece.jpeg'> 3N3 - Department of Ece  is on your right."
+          ];
+          break;
+
+
+        case "4S4":
+          steps = [
+            "<img src='mainentrance.png'> Start from the Main Entrance.",
+            "<img src='stairs.jpeg'> Take the stairs to the 4th floor.",
+            "<img src='turnleft.jpg'> Turn left and walk 10 meters.",
+            "<img src='dept eee.jpeg'> 4S4 - Department of EEE is on your right."
+          ];
+          break;
+          case "4W4":
+          steps = [
+            "<img src='mainentrance.png'> Start from the Main Entrance.",
+            "<img src='stairs.jpeg'> Take the stairs to the 2th floor.",
+            "<img src='turnleft.jpg'> Turn left and walk 50 meters.",
+            "<img src='turnleft.jpg'> Turn left and walk 20 meters.",
+            "<img src='civil.jpeg'> 4W4 - Department of civil/mech is on yur right."
+          ];
+          break;
+          case "4E3":
+          steps = [
+            "<img src='mainentrance.png'> Start from the Main Entrance.",
+            "<img src='stairs.jpeg'> Take left and walk 10 meters.",
+            "<img src='director.jpeg'> 4E3 - Director father  is on your left."
+          ];
+          break;
+          case "4E6":
+          steps = [
+            "<img src='mainentrance.png'> Start from the Main Entrance.",
+            "<img src='turnleft.jpg'> Take the left and walk 15 meters .",
+            "<img src='principal.jpeg'> 4E6 - principal  on your left."
+          ];
+          break;
+          case "4E7":
+          steps = [
+            "<img src='mainentrance.png'> Start from the Main Entrance.",
+            "<img src='mba.png'> Walk towards  MBA Block .",
+            "<img src='turnleft.jpg'> Take the left before stairs.",
+            "<img src='staright.jpeg'> Go staright and walk 30 meters.",
+            "<img src='ass director.jpeg'> 4E7 - Ass Director father is straight ahead."
+          ];
+          break;
+          case "Ground":
+          steps = [
+            "<img src='mainentrance.png'> Start from the Main Entrance.",
+            "<img src='turnleft.jpg'> Take the left and walk 40 meters.",
+            "<img src='turn right.jpeg'> Turn right and walk 100 meters.",
+            "<img src='ground.jpg'> Ground -  CRICKET Ground is straight ahead."
+          ];
+          break;
+          case "4E9":
+          steps = [
+            "<img src='mainentrance.png'> Start from the Main Entrance.",
+            "<img src='stairs.jpeg'> Take the stairs to the 1st floor.",
+            "<img src='turnleft.jpg'> Turn left and walk 40 meters.",
+            "<img src='turnleft.jpg'> Turn left and walk 90 meters.",
+            "<img src='turnleft.jpg'> Turn left and walk 40 meters.",
+            "<img src='library.jpeg'> 4E9 - Library is on your right."
+          ];
+          break;
+
+
+        default:
+          steps = ["<img src='error.png'> No directions available for this room."];
+      }
+
+
+      output.innerHTML = "<strong>Step-by-Step Directions:</strong><br>" + steps.join("<br>");
+      output.style.display = "block";
+    }
+  </script>
+</body>
+</html>
+
+
+
